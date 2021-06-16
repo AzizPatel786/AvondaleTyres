@@ -17,4 +17,9 @@ namespace AvondaleTyres.Data
         }
         public DbSet<Staff> Staffs { get; set; }
     }
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //    base.OnModelCreating(modelBuilder);
+    //    modelBuilder.Seed();
+    //}
 }

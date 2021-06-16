@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using AvondaleTyres;
 using Microsoft.EntityFrameworkCore;
 using AvondaleTyres.Data;
+using Microsoft.AspNetCore.Identity;
+
 namespace AvondaleTyres
 {
     public class Startup
@@ -25,6 +27,11 @@ namespace AvondaleTyres
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentity<IdentityUser, IdentityRole>()
+        .AddEntityFrameworkStores<AppDbContext>();
+            //IdentityUser class is provided by ASP.NET core and contains properties for 
+            //UserName, PasswordHash, Email etc. This is the class that is used by default 
+            //by the ASP.NET Core Identity framework to manage registered users of my application. 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
@@ -47,7 +54,7 @@ namespace AvondaleTyres
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
